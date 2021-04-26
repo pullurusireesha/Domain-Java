@@ -1,0 +1,120 @@
+//create table stock and inserting values
+SQL> create table stock1
+  2  (
+  3  id int,
+  4  company varchar(20),
+  5  batch int,
+  6  status varchar(20),
+  7  country varchar(20)
+  8  );
+
+Table created.
+
+SQL> insert into stock1 values(1,'AB',2,'increase','India');
+
+1 row created.
+
+SQL>  insert into stock1 values(2,'cd',3,'decrease','china');
+
+1 row created.
+
+SQL> insert into stock1 values(3,'ef',4,'increase','Australia');
+
+1 row created.
+
+SQL> select*from stock1;
+
+        ID COMPANY                   BATCH STATUS
+---------- -------------------- ---------- --------------------
+COUNTRY
+--------------------
+         1 AB                            2 increase
+India
+
+         2 cd                            3 decrease
+china
+
+         3 ef                            4 increase
+Australia
+
+
+//create table sales and inserting values
+
+SQL> create table sales2
+  2  (
+  3  customername varchar(20),
+  4  productname varchar(20),
+  5  quality varchar(20),
+  6  productid int,
+  7  price int
+  8  );
+
+Table created.
+
+SQL> insert into sales2 values('A','earphones','good',1,100);
+
+1 row created.
+
+SQL>  insert into sales2 values('B','Bluetooth','good',2,200);
+
+1 row created.
+
+SQL> insert into sales2 values('C','Laptop','good',3,35000);
+
+1 row created.
+
+SQL> select*from sales2;
+
+CUSTOMERNAME         PRODUCTNAME          QUALITY               PRODUCTID
+-------------------- -------------------- -------------------- ----------
+     PRICE
+----------
+A                    earphones            good                          1
+       100
+
+B                    Bluetooth            good                          2
+       200
+
+C                    Laptop               good                          3
+     35000
+
+
+//display current date and time
+
+SQL> select to_char(sysdate,'mm-dd-yy hh:mi') from dual;
+
+TO_CHAR(SYSDAT
+--------------
+04-26-21 07:01
+
+//display current date in DD/MM/YYYY format
+
+SQL> select to_char(sysdate,'dd/mm/yyyy') from dual;
+
+TO_CHAR(SY
+----------
+26/04/2021
+
+//display current date
+
+SQL> select to_char(sysdate,'dd-mm-yyyy') from dual;
+
+TO_CHAR(SY
+----------
+26-04-2021
+
+//display current day as Tuesday
+
+SQL> select to_char(sysdate+1,'DAY') from dual;
+
+TO_CHAR(SYSDATE+1,'DAY')
+------------------------------------
+TUESDAY
+
+// display date after 10 days from the current date
+
+SQL> select to_char(sysdate+10,'DAY') from dual;
+
+TO_CHAR(SYSDATE+10,'DAY')
+------------------------------------
+THURSDAY
