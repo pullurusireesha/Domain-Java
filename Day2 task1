@@ -1,0 +1,83 @@
+//time table
+-------------------
+
+day    sess  faculty  sem  room  subject
+mon    1       john       7th    r1        java
+
+mon    1       john        5th   r2        testing  //invalid
+
+mon    1        cena       7th sem  r3    dbms ? // invalid
+
+mon   1        rock         4th        r1       ds ? // invalid
+
+mon    1       john       7th    r1        java  //invalid
+
+tue    1       john       7th    r1        java  //valid
+
+mon    2       john       7th    r1        java  //valid
+
+
+
+SQL> create table timetable
+  2  (
+  3  day varchar(20) check(day in('mon','tue','wed','thu','fri','sat')),
+  4  sess int,
+  5  faculty varchar(20),
+  6  sem int,
+  7  roomno varchar(20) check(roomno like 'r%'),
+  8  subject varchar (10),
+  9  unique(day,sess,faculty,roomno),
+ 10  constraint tspk primary key(day,sess,sem,subject)
+ 11  );
+
+Table created.
+
+SQL> insert into timetable values('mon',1,'lia',3,'r1','java');
+
+1 row created.
+
+SQL> insert into timetable values('tue',1,'raj',4,'r2','ds');
+
+1 row created.
+
+//on sameday,same session,sameperson,same room,same subject cannot done so it is invalid
+
+SQL> insert into timetable values('tue',1,'raj',5,'r2','ds');
+insert into timetable values('tue',1,'raj',5,'r2','ds')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SYS.SYS_C007030) violated
+
+
+SQL> insert into timetable values('thu',2,'raju',5,'r3','java');
+
+1 row created.
+
+//on sameday,same session,sameperson,same sem,same subject cannot done so it is invalid
+
+
+SQL> insert into timetable values('thu',2,'raju',5,'r4','java');
+insert into timetable values('thu',2,'raju',5,'r4','java')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SYS.TSPK) violated
+
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select*from timetable;
+
+DAY                        SESS FACULTY                     SEM
+-------------------- ---------- -------------------- ----------
+ROOMNO               SUBJECT
+-------------------- ----------
+mon                           1 lia                           3
+r1                   java
+
+tue                           1 raj                           4
+r2                   ds
+
+thu                           2 raju                          5
+r3                   java
