@@ -1,0 +1,145 @@
+//create table Employee with the following attributes and constraints
+
+EmpFName
+EmpMName
+EmpLastName
+EmpAge -> must be a positive number and less than 50
+EmpCity -> should begin with letter B (Ex: Bangalore , Bijapur)
+EmpDesignation -> can be any manager (Ex sales manager, acc manager)
+EmpId -> primary key must have 5 chars (EX: emp01,emp02,emp03)
+empDOB -> must be a date(data type) column
+
+
+SQL> create table Employee
+  2  (
+  3  EmpFName varchar(20),
+  4  EmpMName varchar(20),
+  5  EmpLastName varchar(20),
+  6  EmpAge int check(EmpAge between 1 and 50),
+  7  EmpCity varchar(20) check(EmpCity like 'B%'),
+  8  EmpDesignation varchar(20) check(EmpDesignation like '%manager'),
+  9  empId varchar(5) primary key check(EmpId like 'emp%'),
+ 10  EmpDOB date
+ 11  );
+
+Table created.
+
+SQL> insert into Employee values('p','Navya','SriReddy',25,'Bangalore','Acc manager','emp20','20-OCT-1999');
+
+1 row created.
+
+SQL> insert into Employee values('s','venkata','kumari',27,'Bhilai','Marketing manager','emp21','27-MAR-1999');
+
+1 row created.
+
+SQL> insert into Employee values('q','Naga','Madhuri',45,'Bhopal','Financial manager','emp22','08-MAR-1978');
+
+1 row created.
+
+SQL> insert into Employee values('sai','konda','kumar',44,'Bareilly','Sales manager','emp24','09-SEP-1977');
+
+1 row created.
+
+SQL> insert into Employee values('pulluru','reddy','Sireesha',21,'Bhiwandi','product manager','emp25','10-OCT-1999');
+
+1 row created.
+
+SQL> select*from Employee;
+
+EMPFNAME             EMPMNAME             EMPLASTNAME              EMPAGE
+-------------------- -------------------- -------------------- ----------
+EMPCITY              EMPDESIGNATION       EMPID EMPDOB
+-------------------- -------------------- ----- ---------
+p                    Navya                SriReddy                     25
+Bangalore            Acc manager          emp20 20-OCT-99
+
+s                    venkata              kumari                       27
+Bhilai               Marketing manager    emp21 27-MAR-99
+
+q                    Naga                 Madhuri                      45
+Bhopal               Financial manager    emp22 08-MAR-78
+
+
+EMPFNAME             EMPMNAME             EMPLASTNAME              EMPAGE
+-------------------- -------------------- -------------------- ----------
+EMPCITY              EMPDESIGNATION       EMPID EMPDOB
+-------------------- -------------------- ----- ---------
+sai                  konda                kumar                        44
+Bareilly             Sales manager        emp24 09-SEP-77
+
+pulluru              reddy                Sireesha                     21
+Bhiwandi             product manager      emp25 10-OCT-99
+
+//update any employe and change city name
+SQL> update Employee set Empcity='Banglore' where Empid='emp24';
+
+1 row updated.
+
+//delete an employee
+
+SQL> delete from Employee where Empid='emp20';
+
+1 row deleted.
+
+SQL> commit;
+
+Commit complete.
+
+//delete all employees
+
+SQL> delete from Employee;
+
+4 rows deleted.
+//get back all the employees deleted in previous delete
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select*from Employee;
+
+EMPFNAME             EMPMNAME             EMPLASTNAME              EMPAGE
+-------------------- -------------------- -------------------- ----------
+EMPCITY              EMPDESIGNATION       EMPID EMPDOB
+-------------------- -------------------- ----- ---------
+s                    venkata              kumari                       27
+Bhilai               Marketing manager    emp21 27-MAR-99
+
+q                    Naga                 Madhuri                      45
+Bhopal               Financial manager    emp22 08-MAR-78
+
+sai                  konda                kumar                        44
+Banglore             Sales manager        emp24 09-SEP-77
+
+
+EMPFNAME             EMPMNAME             EMPLASTNAME              EMPAGE
+-------------------- -------------------- -------------------- ----------
+EMPCITY              EMPDESIGNATION       EMPID EMPDOB
+-------------------- -------------------- ----- ---------
+pulluru              reddy                Sireesha                     21
+Bhiwandi             product manager      emp25 10-OCT-99
+
+//display employee  name and dob in(DD-MM-YYYY) fromat
+
+select EmpFName||' '||EmpMName||' '||EmpLastName as EmpName, to_char(empDOB,'DD-MM-YYYY') as DOB from Employee;
+
+EMPNAME                                                        DOB
+-------------------------------------------------------------- ----------
+s venkata kumari                                               27-03-1999
+q Naga Madhuri                                                 08-03-1978
+sai konda kumar                                                09-09-1977
+pulluru reddy Sireesha                                         10-10-1999
+
+//display employee  name in following format  
+       Fname   Mname    lname
+Ex:  Sachin  Ramesh  Tendulkar
+should be displayed as  S.R.Tendulkar  
+
+SQL> select substr(EmpFName,1,1)||'.'||substr(EmpMName,1,1)||'.'||EmpLastName as EmPName from Employee;
+
+EMPNAME
+------------------------------
+s.v.kumari
+q.N.Madhuri
+s.k.kumar
+p.r.Sireesha
