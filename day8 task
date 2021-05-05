@@ -1,0 +1,115 @@
+Note: create with all getter setter cont and to string
+
+// create showroom class which has cars in it . no duplicate car can be stored
+
+ShowRoom ,  Car ->
+name
+cars
+
+// create 2 showroom  objects ..
+
+// accept showroom name from the cmd and display cars in the showroom
+
+package tests;
+
+public class ShowRoom {
+private String name;
+private String color;
+private String series;
+public String getName() {
+	return name;
+}
+public void setName(String name) {
+	this.name = name;
+}
+public String getColor() {
+	return color;
+}
+public void setColor(String color) {
+	this.color = color;
+}
+public String getSeries() {
+	return series;
+}
+public void setSeries(String series) {
+	this.series = series;
+}
+public ShowRoom(String name, String color, String series) {
+	super();
+	this.name = name;
+	this.color = color;
+	this.series = series;
+}
+public ShowRoom(){
+	
+}
+@Override
+public String toString() {
+	return "ShowRoom [name=" + name + ", color=" + color + ", series=" + series + "]";
+}
+
+}
+============================================================================================================
+package tests;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Collection {
+	public static void main(String[] args) {
+		ShowRoom showRoom1=new ShowRoom("BMW","red","7Series");
+		ShowRoom showRoom2=new ShowRoom("Benz","Blue","Aclass");
+		ShowRoom showRoom3=new ShowRoom("Audi","White","A4");
+		ArrayList<ShowRoom> car1=new ArrayList<>();
+		car1.add(showRoom1);
+		car1.add(showRoom2);
+		car1.add(showRoom3);
+		car1.add(showRoom3);
+		
+		
+	HashSet<ShowRoom>showCars=new HashSet<ShowRoom>(car1);
+	ShowRoom showRoom5=new ShowRoom("Benz","Red","Eclass");
+	ShowRoom showRoom6=new ShowRoom("Ferrari","Black","F8");
+	ArrayList<ShowRoom> car2=new ArrayList<>();
+	car2.add(showRoom5);
+	car2.add(showRoom6);
+	car2.add(showRoom6);
+	HashSet<ShowRoom>showCars1=new HashSet<>(car2);
+	
+		Map<String , HashSet<ShowRoom>> cars=new HashMap<String, HashSet<ShowRoom>>();
+		cars.put("S1",showCars);
+		cars.put("S2", showCars1);
+		System.out.println("Enter the showroom list of cars will diaplay");
+
+		Scanner sc=new Scanner(System.in);
+
+		String car=sc.nextLine();
+
+		HashSet<ShowRoom> Scars=cars.get(car);
+
+
+		for(ShowRoom showroom:Scars)
+		{
+		System.out.println(showroom);
+		}
+
+		
+	}
+
+}
+
+//output
+Enter the showroom list of cars will diaplay
+S1
+ShowRoom [name=Audi, color=White, series=A4]
+ShowRoom [name=BMW, color=red, series=7Series]
+ShowRoom [name=Benz, color=Blue, series=Aclass]
+
+
+Enter the showroom list of cars will diaplay
+S2
+ShowRoom [name=Ferrari, color=Black, series=F8]
+ShowRoom [name=Benz, color=Red, series=Eclass]
